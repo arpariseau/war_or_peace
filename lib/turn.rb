@@ -1,5 +1,3 @@
-require './lib/card'
-require './lib/deck'
 require './lib/player'
 
 class Turn
@@ -22,14 +20,18 @@ class Turn
   end
 
   def winner
-    if self.type == :basic
+    if type() == :basic
       if @player1.deck.rank_of_card_at(0) > @player2.deck.rank_of_card_at(0)
         return @player1
       else
         return @player2
       end
-    elsif self.type == :war
-      if @player1.deck.rank_of_card_at(2) > @player2.deck.rank_of_card_at(2)
+    elsif type() == :war
+      if @player1.deck.rank_of_card_at(2).nil?
+        return @player2
+      elsif @player2.deck.rank_of_card_at(2).nil?
+        return @player1
+      elsif @player1.deck.rank_of_card_at(2) > @player2.deck.rank_of_card_at(2)
         return @player1
       else
         return @player2
@@ -40,21 +42,25 @@ class Turn
   end
 
   def pile_cards
-    c = 0
-    if self.type == :basic
+    i = 0
+    if type() == :basic
       @spoils_of_war << @player1.deck.remove_card
       @spoils_of_war << @player2.deck.remove_card
-    elsif self.type == :war
-      while c <= 2
-        @spoils_of_war << @player1.deck.remove_card
-        @spoils_of_war << @player2.deck.remove_card
-        c += 1
+    elsif type() == :war
+      while i <= 2
+        if @player1.deck.cards != []
+          @spoils_of_war << @player1.deck.remove_card
+        end
+        if @player2.deck.cards != []
+          @spoils_of_war << @player2.deck.remove_card
+        end
+        i += 1
       end
     else
-      while c <= 2
+      while i <= 2
         @player1.deck.remove_card
         @player2.deck.remove_card
-        c += 1
+        i += 1
       end
     end
   end
@@ -64,6 +70,31 @@ class Turn
       winner.deck.add_card(spoil)
     end
     @spoils_of_war.clear
+  end
+
+  def start
+    turncount = 1
+    until (@player1.has_lost? || @player2.has_lost?) || turncount == 1000000
+      type = type()
+      winner = winner()
+      pile_cards()
+      if type == :basic
+        puts "#{winner.name} won #{@spoils_of_war.length} cards"
+        award_spoils(winner)
+      elsif type == :war
+        puts "WAR - #{winner.name} won #{@spoils_of_war.length} cards"
+        award_spoils(winner)
+      else
+        puts "*Mutually Assured Destruction* - 6 cards removed from play"
+      end
+    end
+    if @player1.has_lost?
+      return @player2.name
+    elsif @player2.has_lost?
+      return @player1.name
+    else
+      return "DRAW"
+    end
   end
 
 end

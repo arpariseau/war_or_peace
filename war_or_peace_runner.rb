@@ -39,5 +39,10 @@ puts "Type 'GO' to start the game!"
 puts "----------------------------"
 go = gets.chomp
 if go == "GO"
-  puts turn.start
+  result = turn.start
+  if result == turn.player1.name || result == turn.player2.name
+    puts "*~*~*~* #{result} has won the game! *~*~*~*"
+  else
+    puts "---- #{result} ----"
+  end
 end

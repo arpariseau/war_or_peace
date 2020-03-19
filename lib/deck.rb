@@ -8,7 +8,11 @@ class Deck
   end
 
   def rank_of_card_at(index)
-    @cards[index].rank
+    if !@cards[index].nil?
+      return @cards[index].rank
+    else
+      return @cards[index]
+    end
   end
 
   def high_ranking_cards
@@ -22,7 +26,7 @@ class Deck
   end
 
   def percent_high_ranking
-    num_face_cards = self.high_ranking_cards.length.to_f
+    num_face_cards = high_ranking_cards.length.to_f
     ((num_face_cards / @cards.length.to_f) * 100).round(2)
   end
 
