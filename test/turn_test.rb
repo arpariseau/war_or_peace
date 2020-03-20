@@ -53,10 +53,36 @@ class TurnTest < MiniTest::Test
     player2 = Player.new("Aurora", deck2)
     turn = Turn.new(player1, player2)
     assert_equal :basic, turn.type
+  end
+
+  def test_basic_winner
+    deck1 = Deck.new([@card1, @card2, @card5, @card8])
+    deck2 = Deck.new([@card3, @card4, @card6, @card7])
+    player1 = Player.new("Megan", deck1)
+    player2 = Player.new("Aurora", deck2)
+    turn = Turn.new(player1, player2)
     winner = turn.winner
     assert_equal player1, winner
+  end
+
+  def test_basic_pile
+    deck1 = Deck.new([@card1, @card2, @card5, @card8])
+    deck2 = Deck.new([@card3, @card4, @card6, @card7])
+    player1 = Player.new("Megan", deck1)
+    player2 = Player.new("Aurora", deck2)
+    turn = Turn.new(player1, player2)
     turn.pile_cards
     assert_equal [@card1, @card3], turn.spoils_of_war
+  end
+
+  def test_basic_award_spoils
+    deck1 = Deck.new([@card1, @card2, @card5, @card8])
+    deck2 = Deck.new([@card3, @card4, @card6, @card7])
+    player1 = Player.new("Megan", deck1)
+    player2 = Player.new("Aurora", deck2)
+    turn = Turn.new(player1, player2)
+    winner = turn.winner
+    turn.pile_cards
     turn.award_spoils(winner)
     new_deck1 = [@card2, @card5, @card8, @card1, @card3]
     new_deck2 = [@card4, @card6, @card7]
