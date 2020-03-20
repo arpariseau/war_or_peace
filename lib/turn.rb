@@ -79,14 +79,15 @@ class Turn
       winner = winner()
       pile_cards()
       if type == :basic
-        puts "#{winner.name} won #{@spoils_of_war.length} cards"
+        puts "Turn #{turncount}: #{winner.name} won #{@spoils_of_war.length} cards"
         award_spoils(winner)
       elsif type == :war
-        puts "WAR - #{winner.name} won #{@spoils_of_war.length} cards"
+        puts "Turn #{turncount}: WAR - #{winner.name} won #{@spoils_of_war.length} cards"
         award_spoils(winner)
       else
-        puts "*Mutually Assured Destruction* - 6 cards removed from play"
+        puts "Turn #{turncount}: *Mutually Assured Destruction* - 6 cards removed from play"
       end
+      turncount += 1
     end
     if @player1.has_lost?
       return @player2.name
