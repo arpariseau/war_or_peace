@@ -33,8 +33,16 @@ print "Who is player 2? "
 p2name = gets.chomp
 player1 = Player.new(p1name, deck1)
 player2 = Player.new(p2name, deck2)
+turn = Turn.new(player1, player2)
 puts "The players today are #{player1.name} and #{player2.name}."
 puts "Type 'GO' to start the game!"
 puts "----------------------------"
 go = gets.chomp
-require "pry"; binding.pry
+if go == "GO"
+  result = turn.start
+  if result == turn.player1.name || result == turn.player2.name
+    puts "*~*~*~* #{result} has won the game! *~*~*~*"
+  else
+    puts "---- #{result} ----"
+  end
+end
