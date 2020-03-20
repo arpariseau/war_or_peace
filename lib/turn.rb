@@ -85,13 +85,13 @@ class Turn
         puts "Turn #{turncount}: WAR - #{winner.name} won #{@spoils_of_war.length} cards"
         award_spoils(winner)
       else
-        puts "Turn #{turncount}: *Mutually Assured Destruction* - 6 cards removed from play"
+        puts "Turn #{turncount}: *Mutually Assured Destruction* - cards removed from play"
       end
       turncount += 1
     end
-    if @player1.has_lost?
+    if @player1.has_lost? && !@player2.has_lost?
       return @player2.name
-    elsif @player2.has_lost?
+    elsif @player2.has_lost? && !@player1.has_lost?
       return @player1.name
     else
       return "DRAW"
