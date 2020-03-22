@@ -26,4 +26,11 @@ class CardGeneratorTest < Minitest::Test
     assert_instance_of File, @card_gen.cardfile
   end
 
+  def test_file_reading
+    read_cards = @card_gen.read_file
+    assert_equal ("2, Heart, 2"), read_cards[0]
+    assert_equal ("3, Heart, 3"), read_cards[1]
+    assert_equal ("4, Heart, 4"), read_cards[2]
+  end
+
 end

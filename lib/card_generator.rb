@@ -9,4 +9,8 @@ class CardGenerator
     @cardfile = File.open(filename)
   end
 
+  def read_file
+    @cardfile.readlines.map do |line| line.chomp end
+  end
+
 end
