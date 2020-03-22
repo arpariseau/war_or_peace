@@ -2,31 +2,35 @@ require './lib/card'
 require './lib/deck'
 require './lib/player'
 require './lib/turn'
+require './lib/card_generator'
 
-fulldeck = []
-suits = [:spade, :club, :heart, :diamond]
-suits.each do |suit|
-  val = 2
-  while val <= 10
-    card = Card.new(suit, val.to_s, val)
-    fulldeck << card
-    val += 1
-  end
-  cardJ = Card.new(suit, "Jack", 11)
-  fulldeck << cardJ
-  cardQ = Card.new(suit, "Queen", 12)
-  fulldeck << cardQ
-  cardK = Card.new(suit, "King", 13)
-  fulldeck << cardK
-  cardA = Card.new(suit, "Ace", 14)
-  fulldeck << cardA
-end
+# fulldeck = []
+# suits = [:spade, :club, :heart, :diamond]
+# suits.each do |suit|
+#   val = 2
+#   while val <= 10
+#     card = Card.new(suit, val.to_s, val)
+#     fulldeck << card
+#     val += 1
+#   end
+#   cardJ = Card.new(suit, "Jack", 11)
+#   fulldeck << cardJ
+#   cardQ = Card.new(suit, "Queen", 12)
+#   fulldeck << cardQ
+#   cardK = Card.new(suit, "King", 13)
+#   fulldeck << cardK
+#   cardA = Card.new(suit, "Ace", 14)
+#   fulldeck << cardA
+# end
 
-shuffled_deck = fulldeck.shuffle
+# shuffled_deck = fulldeck.shuffle
+card_gen = CardGenerator.new("cards.txt")
+card_gen.card_convert
+shuffled_deck = card_gen.cards.shuffle
 deck1 = Deck.new(shuffled_deck.shift(26))
 deck2 = Deck.new(shuffled_deck)
 
-puts "Welcome to War! (or Peace) This game will be played with #{fulldeck.length} cards."
+puts "Welcome to War! (or Peace) This game will be played with #{shuffled_deck.length} cards."
 print "Who is player 1? "
 p1name = gets.chomp
 print "Who is player 2? "

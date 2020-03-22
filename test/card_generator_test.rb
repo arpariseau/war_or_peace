@@ -41,6 +41,7 @@ class CardGeneratorTest < Minitest::Test
     assert_equal card2.suit, @card_gen.cards[23].suit
     assert_equal card2.value, @card_gen.cards[23].value
     assert_equal card3.suit, @card_gen.cards[38].suit
+    assert_equal card3.rank, @card_gen.cards[38].rank
     assert_equal card4.suit, @card_gen.cards[44].suit
   end
 
