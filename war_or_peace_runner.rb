@@ -26,7 +26,7 @@ shuffled_deck = fulldeck.shuffle
 deck1 = Deck.new(shuffled_deck.shift(26))
 deck2 = Deck.new(shuffled_deck)
 
-puts "Welcome to War! (or Peace) This game will be played with 52 cards."
+puts "Welcome to War! (or Peace) This game will be played with #{fulldeck.length} cards."
 print "Who is player 1? "
 p1name = gets.chomp
 print "Who is player 2? "
